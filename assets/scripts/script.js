@@ -226,9 +226,10 @@ const writePassword = () =>  {
   
   // Final error check to ensure user did not input anything other than numbers into the
   // password length input. If this check is absent, the output will consist only of a
-  // single character.
+  // single character. If this error is triggered the user must refresh the page to
+  // re-enter generation criteria.
     if (passwordCharactersArray.length < 8) {
-      alert("ERROR: non-numerical text was entered as password length input!");
+      alert("ERROR: non-numerical text was entered as password length input! refresh the page to try again!");
       return;
     };
 
