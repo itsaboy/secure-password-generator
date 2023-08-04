@@ -82,14 +82,14 @@ const specialCharactersArray = [
   "_"
 ];
 
-// Array pf characters selected by user preference
+// Array of characters selected by user input criteria
 let selectedCharactersArray = [];
 
 // Array of actual characters randomly chosen for password
 let passwordCharactersArray = [];
 
 // Password Specifications
-let passwordLength = 24;   //default
+let passwordLength = 12;   //default
 let includeLowercase = true;    //default
 let includeUppercase = true;    //default
 let includeNumbers = true;    //default
@@ -99,20 +99,13 @@ let includeSpecial = true;    //default
 let criteriaSet = false;
 
 // User prompts
-
 const userPrompts = () => {
   // Asks the user how long the password should be
-  passwordLength = prompt("How long would you like your password to be?");
-
-  // Validates that the input entered was a number
-  //if (passwordLength === typeof passwordLength) {
-  //  alert("User input was not a valid number! Cannot generate password!");
-  //  return;
-  //}
+  passwordLength = prompt("How long would you like your password to be? Must be between 8 and 128 characters! Submitting anything other than numbers in this field will cause errors!");
 
   // Validates that the input entered was between 8 and 128 characters
   if (passwordLength > 128 || passwordLength < 8) {
-    alert("Cannot generate password! Must be Must be between 8 and 128 characters!");
+    alert("Cannot generate password! Must be between 8 and 128 characters!");
     return;
   };
 
@@ -155,7 +148,7 @@ const userPrompts = () => {
   } else {
     writePassword();
   };
-}
+};
 
 // Selects lowercase letters if selected by user
 const loopThroughLowercase = () => {
@@ -230,11 +223,20 @@ const writePassword = () =>  {
   // Otherwise if criteria is set, any subsequent button press will generate a new password with the same criteria as before
   } else {
     const password = generatePassword();
+  
+  // Final error check to ensure user did not input anything other than numbers into the
+  // password length input. If this check is absent, the output will consist only of a
+  // single character.
+    if (passwordCharactersArray.length < 8) {
+      alert("ERROR: non-numerical text was entered as password length input!");
+      return;
+    };
+
     const passwordText = document.getElementById("password");
   
     passwordText.value = password;
   
-    // Clears the passwordCharacterArray so it can be populated by new random characters. If this (line 238) is absent,
+    // Clears the passwordCharacterArray so it can be populated by new random characters. If this is absent,
     // when the button is pressed instead of a whole new password being generated, the old password will just have one
     // random character added to the end.
     passwordCharactersArray = [];
