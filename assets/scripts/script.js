@@ -142,7 +142,7 @@ const userPrompts = () => {
 
   // Prompts user that no character selection criteria were confirmed
   if (includeLowercase === false && includeLowercase === false && includeSpecial === false && includeNumbers === false) {
-    alert("No characters selected! Cannot generate password!");
+    alert("No characters selected! Cannot generate password! Refresh the page to try again!");
     return;
   // Generates password according to user criteria
   } else {
