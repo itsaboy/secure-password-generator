@@ -95,7 +95,8 @@ let includeUppercase = true;    //default
 let includeNumbers = true;    //default
 let includeSpecial = true;    //default
 
-// Validation check for user inputs
+// Validation check for user inputs. As long as this value is false, the function that is called
+// by the "Generate Password" button's event listener will start the user prompts function
 let criteriaSet = false;
 
 // User prompts
@@ -103,7 +104,7 @@ const userPrompts = () => {
   // Asks the user how long the password should be
   passwordLength = prompt("How long would you like your password to be? Must be between 8 and 128 characters! Submitting anything other than numbers in this field will cause errors!");
 
-  // Validates that the input entered was between 8 and 128 characters
+  // Alerts the user that input entered was not between 8 and 128 characters
   if (passwordLength > 128 || passwordLength < 8) {
     alert("Cannot generate password! Must be between 8 and 128 characters!");
     return;
@@ -137,15 +138,14 @@ const userPrompts = () => {
     includeSpecial = false;
   };
 
-  // Confirms validation of selected user inputs, if this value is false the generator will not run
-  criteriaSet = true;
-
-  // Prompts user that no character selection criteria were confirmed
+  // Alerts user that no character selection criteria were confirmed
   if (includeLowercase === false && includeUppercase === false && includeSpecial === false && includeNumbers === false) {
-    alert("No characters selected! Cannot generate password! Refresh the page to try again!");
+    criteriaSet = false;
+    alert("No characters selected! Cannot generate password!");
     return;
   // Generates password according to user criteria
   } else {
+    criteriaSet = true;
     writePassword();
   };
 };
@@ -194,10 +194,10 @@ const loopThroughSpecials = () => {
   };
 };
 
-// Runs the previous four functions to populate the selectedCharactersArray.
+// Runs the above four functions (line 154 to 195) in sequence to populate the selectedCharactersArray.
 // Then randomly pushes a character from the selectedCharactersArray to the passwordCharactersArray
 // as long as the number of characters pushed is not greater than the max number of characters
-// in the length of the password chosen by the user. Returns the passwordCharactersArray
+// set for the length of the password. Returns the passwordCharactersArray
 // in a string format with no spaces, commas, etc in between characters.
 const generatePassword = () => {
   loopThroughLowercase();
@@ -217,19 +217,21 @@ const generateBtn = document.getElementById("generate");
 
 // Write password to the #password input
 const writePassword = () =>  {
-  // If button is pressed without valid user criteria (page just loaded/refreshed), prompts will appear sequentially to set the criteria
+  // If button is pressed without valid user criteria, prompts will appear sequentially to set the criteria
   if (criteriaSet === false) {
     userPrompts();
-  // Otherwise if criteria is set, any subsequent button press will generate a new password with the same criteria as before
+  // Otherwise if criteria is set, any subsequent button press will generate a new password with
+  // the current set criteria
   } else {
     const password = generatePassword();
   
   // Final error check to ensure user did not input anything other than numbers into the
-  // password length input. If this check is absent, the output will consist only of a
-  // single character. If this error is triggered the user must refresh the page to
-  // re-enter generation criteria.
+  // password length input. If this check is absent and non-numeric values were input 
+  // the output will consist only of a single character. 
+  // If this error is triggered the user must press the "Generate Password" button
+  // to re-enter the password generation criteria.
     if (passwordCharactersArray.length < 8) {
-      alert("ERROR: non-numerical text was entered as password length input! Refresh the page to try again!");
+      alert("ERROR: non-numerical text was entered as password length input!");
       return;
     };
 
@@ -237,10 +239,11 @@ const writePassword = () =>  {
   
     passwordText.value = password;
   
-    // Clears the passwordCharacterArray so it can be populated by new random characters. If this is absent,
-    // when the button is pressed instead of a whole new password being generated, the old password will just have one
-    // random character added to the end.
+    // Clears the passwordCharacterArray so it can be populated by a new password. 
+    // If this array is not cleared and the user presses the "Generate Password" button again,
+    // a single random character will be added to the end of the current password.
     passwordCharactersArray = [];
+    console.log(criteriaSet)
   };
 };
 
