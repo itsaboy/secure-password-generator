@@ -1,4 +1,6 @@
-//  Pre-defined Character Arrays
+////////  Pre-defined Character Arrays ////////
+
+// lowercase letters
 const lowercaseArray = [
   "a",
   "b",
@@ -28,6 +30,7 @@ const lowercaseArray = [
   "z"
 ];
 
+// uppercase letters
 const upperCaseArray = [
   "A",
   "B",
@@ -57,6 +60,7 @@ const upperCaseArray = [
   "Z"
 ];
 
+// numbers
 const numbersArray = [
   "1",
   "2",
@@ -69,6 +73,7 @@ const numbersArray = [
   "9"
 ];
 
+// special characters
 const specialCharactersArray = [
   "!",
   "@",
@@ -88,7 +93,9 @@ let selectedCharactersArray = [];
 // Array of actual characters randomly chosen for password
 let passwordCharactersArray = [];
 
-// Password Specifications
+////////  Criteria for password and user input prompts ////////
+
+// Password Criteria
 let passwordLength = 12;   //default
 let includeLowercase = true;    //default
 let includeUppercase = true;    //default
@@ -150,6 +157,8 @@ const userPrompts = () => {
   };
 };
 
+////////  Array loop logic ////////
+
 // Selects lowercase letters if selected by user
 const loopThroughLowercase = () => {
   if (includeLowercase === true) {
@@ -194,7 +203,9 @@ const loopThroughSpecials = () => {
   };
 };
 
-// Runs the above four functions (line 154 to 195) in sequence to populate the selectedCharactersArray.
+////////  Functions that generate and display password ////////
+
+// Runs the array loop logic functions in sequence to populate the selectedCharactersArray.
 // Then randomly pushes a character from the selectedCharactersArray to the passwordCharactersArray
 // as long as the number of characters pushed is not greater than the max number of characters
 // set for the length of the password. Returns the passwordCharactersArray
