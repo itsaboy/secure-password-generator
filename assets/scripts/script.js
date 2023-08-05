@@ -1,4 +1,4 @@
-////////  Pre-defined Character Arrays ////////
+////////  Character Arrays ////////
 
 // lowercase letters
 const lowercaseArray = [
