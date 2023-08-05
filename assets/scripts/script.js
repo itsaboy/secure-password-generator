@@ -207,9 +207,7 @@ const loopThroughSpecials = () => {
 
 // Runs the array loop logic functions in sequence to populate the selectedCharactersArray.
 // Then randomly pushes a character from the selectedCharactersArray to the passwordCharactersArray
-// as long as the number of characters pushed is not greater than the max number of characters
-// set for the length of the password. Returns the passwordCharactersArray
-// in a string format with no spaces, commas, etc in between characters.
+// until the number of array elements is the same as the password length selected by user.
 const generatePassword = () => {
   loopThroughLowercase();
   loopThroughUppercase();
@@ -237,10 +235,7 @@ const writePassword = () =>  {
     const password = generatePassword();
   
   // Final error check to ensure user did not input anything other than numbers into the
-  // password length input. If this check is absent and non-numeric values were input 
-  // the output will consist only of a single character. 
-  // If this error is triggered the user must press the "Generate Password" button
-  // to re-enter the password generation criteria.
+  // password length input.
     if (passwordCharactersArray.length < 8) {
       alert("ERROR: non-numerical text was entered as password length input!");
       return;
@@ -250,9 +245,8 @@ const writePassword = () =>  {
   
     passwordText.value = password;
   
-    // Clears the passwordCharacterArray so it can be populated by a new password. 
-    // If this array is not cleared and the user presses the "Generate Password" button again,
-    // a single random character will be added to the end of the current password.
+    // Clears the passwordCharacterArray so it can be populated by a new password on subsequent
+    // "Generate Password" button clicks
     passwordCharactersArray = [];
     console.log(criteriaSet)
   };
