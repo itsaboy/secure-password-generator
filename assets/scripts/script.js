@@ -62,6 +62,7 @@ const upperCaseArray = [
 
 // numbers
 const numbersArray = [
+  "0",
   "1",
   "2",
   "3",
@@ -214,7 +215,7 @@ const generatePassword = () => {
   loopThroughNumbers();
   loopThroughSpecials();
   do {
-    randomSelection = selectedCharactersArray[Math.floor(Math.random() * selectedCharactersArray.length)];
+    let randomSelection = selectedCharactersArray[Math.floor(Math.random() * selectedCharactersArray.length)];
     passwordCharactersArray.push(randomSelection);
   }
   while (passwordCharactersArray.length <= passwordLength - 1);
@@ -232,23 +233,19 @@ const writePassword = () =>  {
   // Otherwise if criteria is set, any subsequent button press will generate a new password with
   // the current set criteria
   } else {
-    const password = generatePassword();
-  
+    generatePassword();
   // Final error check to ensure user did not input anything other than numbers into the
   // password length input.
     if (passwordCharactersArray.length < 8) {
+      criteriaSet = false;
       alert("ERROR: non-numerical text was entered as password length input!");
       return;
     };
-
     const passwordText = document.getElementById("password");
-  
-    passwordText.value = password;
-  
+    passwordText.value = generatePassword();
     // Clears the passwordCharacterArray so it can be populated by a new password on subsequent
     // "Generate Password" button clicks
     passwordCharactersArray = [];
-    console.log(criteriaSet)
   };
 };
 
