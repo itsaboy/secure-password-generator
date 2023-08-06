@@ -207,7 +207,7 @@ const loopThroughSpecials = () => {
 ////////  Functions that generate and display password ////////
 
 // Runs the array loop logic functions in sequence to populate the selectedCharactersArray.
-// Then randomly pushes a character from the selectedCharactersArray to the passwordCharactersArray
+// Then randomly pushes characters from the selectedCharactersArray to the passwordCharactersArray
 // until the number of array elements is the same as the password length selected by user.
 const generatePassword = () => {
   loopThroughLowercase();
@@ -235,7 +235,9 @@ const writePassword = () =>  {
   } else {
     generatePassword();
   // Final error check to ensure user did not input anything other than numbers into the
-  // password length input.
+  // password length input. If the user does input non-numerical text, the generator would
+  // usually grab just a single random character. However, extended testing of this did sometimes
+  // result in multiple random characters, but always less than 8 hence this If statement
     if (passwordCharactersArray.length < 8) {
       criteriaSet = false;
       alert("ERROR: non-numerical text was entered as password length input!");
